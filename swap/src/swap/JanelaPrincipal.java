@@ -6,9 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class JanelaPrincipal extends JFrame {
 
@@ -68,7 +74,7 @@ public class JanelaPrincipal extends JFrame {
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(5, 28, 214, 20);
+		textField_2.setBounds(5, 28, 241, 20);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -82,10 +88,31 @@ public class JanelaPrincipal extends JFrame {
 		textField_3.setColumns(10);
 		
 		JButton btnAbrir = new JButton("Abrir");
-		btnAbrir.setBounds(229, 27, 79, 23);
+		btnAbrir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fc = new JFileChooser();
+                int res = fc.showOpenDialog(null);
+                
+               if(res == JFileChooser.APPROVE_OPTION){
+                    File arquivo = fc.getSelectedFile();  
+                    String caminho = arquivo.getPath();
+                    textField_2.setText(caminho);
+                 }
+                else
+                    JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum arquivo."); 
+            }
+
+		});
+		btnAbrir.setBounds(256, 27, 79, 23);
 		contentPane.add(btnAbrir);
 		
 		JButton btnI = new JButton("Iniciar");
+		btnI.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			JanelaSaida jn = new JanelaSaida();
+			jn.setVisible(true);
+			}
+		});
 		btnI.setBounds(180, 227, 89, 23);
 		contentPane.add(btnI);
 	}
